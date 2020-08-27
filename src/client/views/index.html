@@ -6,6 +6,31 @@
     <title>Travel App</title>
 </head>
 <body>
-    
+    <main class="main-container">
+        <header>
+            <h1 class="landing-page-heading">Travel Planner</h1>
+            <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit impedit cum molestias, temporibus excepturi dolorum?</p> -->
+            <button>Get Started</button>
+        </header>
+        <section class="form-and-results">
+            <div class="results">
+                <p class="results-text">Results Text Here</p>
+            </div>
+            <div class="form-container">
+                <form onsubmit="return handleSubmit(event)">
+                    <input class="text-input" id="destination" type="text" name="input" value="" placeholder="Where would you like to go?">
+                    <input class="text-input" id="date" type="text" name="input" value="" placeholder="When would you like to go?">
+                    <input class="button" type="submit" name="" value="Submit" onclick="return Client.handleSubmit(event)" onsubmit="return Client.handleSubmit(event)">
+                </form>
+            </div>
+            <!-- <form class="main-form">
+                <h2 class="form-heading">Travel Details</h2>
+                <p class="form-requirements">Destination and Departure Date Required</p>
+            </form> -->
+        </section>
+        <footer>
+            <p>Lorem ipsum dolor sit.</p>
+        </footer>
+    </main>
 </body>
 </html>

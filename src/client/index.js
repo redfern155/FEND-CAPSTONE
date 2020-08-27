@@ -1,3 +1,3 @@
-import './styles/styles.scss';
+import './styles/base.scss';
 
 const placeholder = 1;
