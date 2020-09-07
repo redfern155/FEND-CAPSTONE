@@ -23,7 +23,11 @@ body {
     // position: relative;
 }
 
-header {
+a {
+    text-decoration: none;
+}
+
+#hero {
     // background: rgba(0,0,0,0.8);
     background-image: url('../img/background.jpg');
     background-size: cover;
@@ -44,7 +48,7 @@ header {
             letter-spacing: 0.5rem;
         }
 
-        button {
+        .headerBtn {
             padding: 1rem;
             font-size: 1.5rem;
             color: rgb(251, 246, 226);
@@ -60,7 +64,7 @@ header {
         }
 }
 
-.form-and-results {
+#form-and-results {
     display: flex;
     justify-content: space-between;
     // flex-grow: 1;
@@ -68,6 +72,10 @@ header {
     align-items: stretch;
     // font-size: 2rem;
     background-color: rgba(240,240,240,1);
+
+    #destination-image {
+        background-image: url('../img/default.jpg');
+    }
 
     .form-container {
         display: flex;
@@ -80,6 +88,10 @@ header {
             align-items: center;
             justify-content: center;
             width: 50vw;
+
+            label {
+                margin: 0.5rem;
+            }
     
             input {
                 margin: 0.5rem;
@@ -89,6 +101,13 @@ header {
             .text-input {
                 padding: 0.5rem;
                 min-width: 200px;
+                min-height: 20px;
+            }
+
+            .date-input {
+                padding: 0.5rem;
+                text-align: center;
+                min-height: 20px;
             }
     
             .button {
@@ -97,17 +116,18 @@ header {
         }
     }
 
-    .results {
+    #results-container {
         width: 50vw;
         text-align: center;
         background-image: url('../img/default.jpg');
         background-size: cover;
+        background-position: center;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
 
-        .results-text {
+        #results-text-container {
             background-color: rgba(244,244,244,0.7);
             padding: 1rem;
             border-radius: 0.5rem;
@@ -129,14 +149,14 @@ footer {
     height: 100px;
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 750px) {
 
     header {
         h1 {
             font-size: 2rem;
         }
     }
-    .form-and-results {
+    #form-and-results {
         // border: 1px solid blue;
         flex-direction: column;
         justify-content: space-evenly;
@@ -149,7 +169,7 @@ footer {
             }
         }
 
-        .results {
+        #results-container {
             width: 100vw;
             // border: 1px solid red;
             flex-grow: 1;
