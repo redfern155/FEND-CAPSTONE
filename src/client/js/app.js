@@ -14,7 +14,7 @@ const tripInfo = {
 }
 
 // This function only executes on anchor elements, and smoothly scrolls to the anchor's href once the anchor is clicked
-function scrollTo(e) {
+const scrollTo = (e) => {
     if (e.target.nodeName === 'A') {
         e.preventDefault();
         const tar = document.querySelector(e.target.getAttribute('href'));
@@ -23,7 +23,7 @@ function scrollTo(e) {
 }
 
 // This function validates user input, submits a POST request, and then calls the populateTripInfo and buildWeatherResults functions
-function formHandler(e) {
+const formHandler = (e) => {
     e.preventDefault();
 
     tripInfo.formDest = document.getElementById('destination').value;
@@ -62,7 +62,7 @@ function formHandler(e) {
 }
 
 // This function dynamically sets the year options that the user has to choose from based on the current date
-function buildYearForm() {
+const buildYearForm = () => {
     // Initialize the present date
     const presentDate = new Date();
     // Initialize the future date object
@@ -88,7 +88,7 @@ function buildYearForm() {
 }
 
 // This function dynamically builds the day selection based on the month selected and whether or not the year selected is a leap year
-function buildDayForm() {
+const buildDayForm = () => {
     const month = document.getElementById('month').value;
     const year = document.getElementById('year').value;
     const daySelector = document.getElementById('day');
@@ -124,7 +124,7 @@ function buildDayForm() {
 }
 
 // This function populates the trip info ojbect with the returned data from the POST request.
-function populateTripInfo(res) {
+const populateTripInfo = (res) => {
     tripInfo.city = res.city;
     tripInfo.countryName = res.countryName;
     tripInfo.countryCode = res.countryCode;
@@ -146,7 +146,7 @@ function populateTripInfo(res) {
 }
 
 // This function dynamically builds the weather results section based on if the users travel date is within the week or further in the future.
-function buildWeatherResults(dayDiff) {
+const buildWeatherResults = (dayDiff) => {
     const resultsContainer = document.getElementById('results-text-container');
     const resultsHeader = document.getElementById('results-header');
     while (resultsContainer.firstChild) {
@@ -183,7 +183,7 @@ function buildWeatherResults(dayDiff) {
 }
 
 // Wrap event listeners in a function to export to index.js
-function initEventListeners() {
+const initEventListeners = () => {
     document.getElementById('hero').addEventListener('click', scrollTo);
     document.getElementById('formSubmit').addEventListener('click', formHandler);
     document.addEventListener('DOMContentLoaded', buildYearForm)
