@@ -1,4 +1,4 @@
-// Dependencies
+// Initialize an object and properties to store the trip info
 const tripInfo = {
     formDest: '',
     city: '',
@@ -13,6 +13,7 @@ const tripInfo = {
     error: '',
 }
 
+// Dependencies
 const dotenv = require('dotenv');
 dotenv.config();
 const express = require('express');
@@ -35,11 +36,7 @@ app.use(cors());
 // Initializing the main project folder
 app.use(express.static('dist'));
 
-// Shouldn't need this get request, can most likely delete.
-// app.get('/', (req, res) => {
-//     res.sendFile('dist/index.html')
-// });
-
+// Setup Server
 const port = 8081;
 const server = app.listen(port, () => {
     console.log(`Running on localhost: ${port}`)
@@ -53,6 +50,7 @@ app.post('/form', (req, res) => {
     })
 })
 
+// This function contains a set of 3 get requests that carry out asynchronously to the Geonames, Weatherbit, & Pixabay APIs
 const getLocDetails = (city, callback) => {
     axios.get(`http://api.geonames.org/searchJSON?q=${city}&maxRows=10&username=${geoUsername}`)
     .then(res => {
@@ -70,10 +68,8 @@ const getLocDetails = (city, callback) => {
             tripInfo.stateName = geonames.adminName1;
             axios.get(`http://api.weatherbit.io/v2.0/forecast/daily?lat=${geonames.lat}&lon=${geonames.lng}&key=${weatherBitKey}`)
             .then(res => {
-                // console.log(res.data.data);
                 tripInfo.city = res.data.city_name;
                 tripInfo.weatherForecast = res.data.data;
-                // Still need to grab the needed weather data and store it in the endpoint ojbect
                 let secQueryParam = '';
                 if (tripInfo.countryCode === 'US') {
                 secQueryParam = tripInfo.stateName;
@@ -81,31 +77,20 @@ const getLocDetails = (city, callback) => {
                     secQueryParam = tripInfo.countryName;
                 }
                 axios.get(`https://pixabay.com/api/?key=${pixabayKey}&q=${tripInfo.city}+${secQueryParam}&image_type=photo&category=places&safesearch=true`)
-                // .then(res => console.log(res))
                 .then(res => {
                     if ((res.status === 200) && (res.data.hits.length === 0)) {
                         console.log('Successful get request, however no images were found matching the input destination');
                         tripInfo.error = 'No images were found matching the input destination';
                         callback(tripInfo);
                     }   else {
-                        // console.log(res.data.hits[0]);
                         tripInfo.destImageUrl = res.data.hits[0].largeImageURL;
-                        console.log(tripInfo);
                         callback(tripInfo);
                     }
                 })
-            // .then(res => res.data.hits[0])
-            // .then(hits => {
-            //     console.log(hits);
-            //     tripInfo.destImageUrl = hits.largeImageURL;
-            //     console.log(tripInfo);
-            //     callback(tripInfo);
-            // })
                 .catch(error => {
                     console.log(error, 'Pixabay get request error')
                     callback({error: 'Pixaby get request error'});
                 })
-            // callback(res.data);
             })
             .catch (error => {
                 console.log(error, 'Weatherbit get request error');
@@ -114,12 +99,12 @@ const getLocDetails = (city, callback) => {
         }
     })
     .catch (error => {
-        // console.log(typeof error);
         console.error(error, 'Geonames get request error');
         callback({error: 'Geonames get request error'});
     })
 }
 
+// This function resets the tripInfo object property values.  This is necessary so that old data is not returned to the client in the event of a failed GET request to one of the three APIs
 const resetTrip = () => {
     tripInfo.formDest = '';
     tripInfo.city = '';

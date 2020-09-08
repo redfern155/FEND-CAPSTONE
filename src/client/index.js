@@ -1,15 +1,11 @@
-import { scrollTo, formHandler, buildYearForm, buildDayForm } from './js/app';
-// import { formHandler } from './js/app';
+// Import JS Functions
+import { buildYearForm, initEventListeners } from './js/app';
 
+// Import Styles
 import './styles/base.scss';
 
-document.getElementById('hero').addEventListener('click', scrollTo);
-document.getElementById('formSubmit').addEventListener('click', formHandler);
-document.addEventListener('DOMContentLoaded', buildYearForm)
-document.getElementById('month').addEventListener('change', buildDayForm);
-
-// Do these need to be exported?
-export {
-    scrollTo,
-    formHandler
-}
+// Initialize any event listeners and/or any functions that requrie the DOM to be loaded first
+window.addEventListener('DOMContentLoaded', () => {
+    buildYearForm();
+    initEventListeners();
+})

@@ -1,45 +1,33 @@
 $primaryColor: #63382a;
 
+// Resets so that individual elements can be styled
 * {
     margin: 0;
     padding: 0;
 }
 
-html, body {
-    // height: 100%;
-}
-
+// General Styles
 body {
-    // margin: 0;
-    // padding: 0;
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-    // font-family: "Lato", sans-serif;
     color: $primaryColor;
-}
-
-.main-container {
-    // margin: 0;
-    // min-height: 100%;
-    // position: relative;
 }
 
 a {
     text-decoration: none;
 }
 
+// Style the hero to be a full screen banner
 #hero {
-    // background: rgba(0,0,0,0.8);
     background-image: url('../img/background.jpg');
     background-size: cover;
     background-position: center;
-    // width: 100%;
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
 
-        h1 {
+        .landing-page-heading {
             padding: 2rem 0;
             font-size: 4rem;
             font-weight: 100;
@@ -64,115 +52,192 @@ a {
         }
 }
 
+// Styles for the main functioning section of the webpage including the form and displayed results
 #form-and-results {
-    display: flex;
-    justify-content: space-between;
-    // flex-grow: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 3fr;
+    grid-template-areas: 
+    "results form"
+    "results img";
     min-height: 500px;
-    align-items: stretch;
-    // font-size: 2rem;
-    background-color: rgba(240,240,240,1);
+    background-color: rgb(240,240,240);
+
+    .content-box {
+        margin: 2rem;
+        box-shadow: 0.5rem 0.5rem 0.25rem rgb(100,100,100);
+        border: 0.125rem solid;
+        border-radius: 0.5rem;
+    }
 
     #destination-image {
+        grid-area: img;
         background-image: url('../img/default.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
     }
 
     .form-container {
+        grid-area: form;
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-items: center;
+        padding: 1rem;
+        background-color: rgb(250, 250, 250);
 
-        form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 50vw;
+        .form-item {
+            margin: 0.5rem;
+        }
 
-            label {
-                margin: 0.5rem;
+        label {
+            margin: 0.5rem;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .text-input {
+            padding: 0.5rem;
+            min-width: 200px;
+            min-height: 20px;
+            margin: 0.5rem;
+
+            &:hover {
+                background-color: rgb(230,230,230);
             }
-    
-            input {
-                margin: 0.5rem;
-                // font-size: 1rem;
-            }
-    
-            .text-input {
-                padding: 0.5rem;
-                min-width: 200px;
-                min-height: 20px;
+        }
+
+        .date-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            grid-template-areas: 
+            "ml dl yl"
+            "m d y";
+            justify-items: center;
+
+            select {
+                margin: 0 0.5rem;
+                width: 6rem;
+                height: 2rem;
+
+                &:hover {
+                    background-color: rgb(230,230,230);
+                    cursor: pointer;
+                }
             }
 
-            .date-input {
-                padding: 0.5rem;
-                text-align: center;
-                min-height: 20px;
+            #month-label {
+                grid-area: ml;
+                align-self: center;
             }
-    
-            .button {
-                padding: 0.5rem;
+
+            #month {
+                grid-area: m;
+            }
+
+            #day-label {
+                grid-area: dl;
+            }
+
+            #day {
+                grid-area: d;
+            }
+
+            #year-label {
+                grid-area: yl;
+            }
+
+            #year {
+                grid-area: y;
+            }
+        }
+
+        .button {
+            padding: 0.5rem;
+            
+            &:hover {
+                font-weight: bold;
             }
         }
     }
 
     #results-container {
-        width: 50vw;
+        grid-area: results;
         text-align: center;
-        background-image: url('../img/default.jpg');
-        background-size: cover;
-        background-position: center;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        background-color: rgb(250, 250, 250);
+        padding: 1rem;
 
         #results-text-container {
-            background-color: rgba(244,244,244,0.7);
-            padding: 1rem;
+            padding: 2rem;
             border-radius: 0.5rem;
-            color: #000
+            line-height: 2rem;
+            text-align: start;
+            font-size: 1.25rem;
+            list-style-type: circle;
         }
     }
 }
 
+// Styles for the footer
 footer {
     background-color: rgba(240,240,240,1);
     display: flex;
     justify-content: center;
     align-items: center;
-    // position: absolute;
-    // bottom: 0;
-    // width: 100%;
-    // height: 100px;
     text-align: center;
     height: 100px;
 }
 
-@media only screen and (max-width: 750px) {
+// Styles changes for small size screens
+@media only screen and (max-width: 770px) {
 
-    header {
-        h1 {
+    #hero {
+        .landing-page-heading {
             font-size: 2rem;
         }
     }
     #form-and-results {
-        // border: 1px solid blue;
-        flex-direction: column;
-        justify-content: space-evenly;
+        grid-template-columns: 1fr;
+        grid-template-rows: 300px 300px 2fr;
+        grid-template-areas: 
+        "form"
+        "img"
+        "results";
 
-        .form-container {
-            // border: 1px solid red;
+        .content-box {
+            margin: 0.5rem;
+            box-shadow: 0.5rem 0.5rem 0.25rem rgb(100,100,100);
+            border: 0.125rem solid;
+            border-radius: 0.5rem;
+        }
 
-            form {
-                width: 100vw;
+        .date-container {
+
+            #month {
+                width: 5.75rem;
+                height: 2rem;
+            }
+
+            #day {
+                width: 3rem;
+            }
+
+            #year {
+                width: 4rem;
             }
         }
 
         #results-container {
-            width: 100vw;
-            // border: 1px solid red;
-            flex-grow: 1;
+            #results-text-container {
+                font-size: 1rem;
+                // line-height: 1rem;
+            }
         }
     }
 }
