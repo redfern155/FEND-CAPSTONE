@@ -25,17 +25,12 @@ const scrollTo = (e) => {
 // This function validates user input, submits a POST request, and then calls the populateTripInfo and buildWeatherResults functions
 const formHandler = (e) => {
     e.preventDefault();
-
+    // Retrieve the form inputs
     tripInfo.formDest = document.getElementById('destination').value;
-    // Initialize the user input date
     const formMonth = document.getElementById('month').value;
     const formDay = document.getElementById('day').value;
     const formYear = document.getElementById('year').value;
-    const formDate = new Date(formYear, formMonth, formDay);
-    // Initialize the current date w/o a timestamp
-    const currDate = new Date(new Date().getFullYear(),new Date().getMonth() , new Date().getDate());
-    // Calculate the number of days difference between the user input date and the current date (a negative number indicates a date in the past)
-    const dayDiff = (formDate - currDate)/(1000 * 3600 * 24);
+    const dayDiff = calcDateDifference(formYear, formMonth, formDay);
 
     console.log("::: Form Submitted :::");
 
@@ -123,6 +118,16 @@ const buildDayForm = () => {
     }
 }
 
+const calcDateDifference = (year, month, day) => {
+    // Initialize the user input date object w/o a timestamp
+    const formDate = new Date(year, month, day);
+    // Initialize the current date object w/o a timestamp
+    const currDate = new Date(new Date().getFullYear(),new Date().getMonth() , new Date().getDate());
+    // Calculate the number of days difference between the user input date and the current date (a negative number indicates a date in the past)
+    const dayDiff = (formDate - currDate)/(1000 * 3600 * 24);
+    return dayDiff;
+}
+
 // This function populates the trip info ojbect with the returned data from the POST request.
 const populateTripInfo = (res) => {
     tripInfo.city = res.city;
@@ -193,5 +198,6 @@ const initEventListeners = () => {
 export {
     buildYearForm,
     buildWeatherResults,
-    initEventListeners
+    initEventListeners,
+    calcDateDifference
 }
